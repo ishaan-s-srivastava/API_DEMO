@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Demo</title>
+</head>
+<body>
+    <div class="results">
+        <h1 id="name"></h1>
+        <h2 id="height"></h2>
+        <h2 id="weight"></h2>
+        <h2 id="gen"></h2>
+    </div>
+    <script>
+        fetch("https://pokeapi.co/api/v2/pokemon/dialga")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("name").textContent = data.name;
+                document.getElementById("height").textContent = "Height: " + data.height;
+                document.getElementById("weight").textContent = "Weight: " + data.weight;
+                document.getElementById("gen").textContent = data.past_abilities[0].generation.name;
+            })
+        
+    </script>
+
+    <h2>About This API</h2>
+    <p>
+        I chose PokeAPI because it is free and provides
+        information about Pokemon. It returns JSON data
+        and does not require an API key. Also, I'm a 
+        really big Pokemon fan.
+    </p>
+
+    <p>
+        API source:
+        <a href="https://pokeapi.co/docs/v2" target="_blank">PokeAPI Documentation</a>
+    </p>
+
+    <p>
+        The API uses a Pokemon name as a parameter in the URL.
+        I used "dialga" to retrieve information about
+        Dialga, my favorite Pokemon.
+    </p>
+
+    <p>
+        This API could be used to create a Pokemon website
+        that displays information about different Pokemon.
+    </p>
+
+    <style>
+        h2 {
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        h1 {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-weight: 200;
+        }
+
+
+        p {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    
+</body>
+</html>

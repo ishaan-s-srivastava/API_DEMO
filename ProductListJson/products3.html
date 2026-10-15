@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="jquery.min.js"></script>
+    <title>products 3</title>
+</head>
+<body>
+
+    <div id="result">
+        <button id="display">Display Product</button>
+    </div>
+    <script>
+        document.getElementById("display").addEventListener("click", (event) => {
+            $.get("products.json", function(products) {
+                products.forEach(function(product) {
+                    document.getElementById("result").innerHTML += 
+                    "<h1>" + product.Name + "</h1></br>" +
+                    "<p>" + product.Description + "</p></br>" +
+                    "<p>Price: " + product.Price + "</p></br>" +
+                    "<p>Categories: " + product.Categories + "</p>"
+                })
+                
+            })
+        })
+    </script>
+    <style>
+        h1 {
+            font-family: Arial, Helvetica, sans-serif;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+    </style>
+    <button id="filter">Filter</button>
+    <select name="Filter" id="Categories"></select>
+   
+    <script>
+        // let categories = document.getElementById("result").p.Categories.split(",");
+        
+        $.get("products.json", function(products) {
+            let categories = [];
+            products.forEach(function(product) {
+
+                product.Categories.forEach(function(cat) {
+                    if (!categories.includes(cat)) {
+                        categories.push(cat);
+                    }
+                })
+                
+            });
+
+            categories.forEach(function(category) {
+                let option = document.createElement("option");
+                option.value =  category;
+                option.textContent = category;
+                document.getElementById("Categories").appendChild(option);
+            })
+            
+        });
+
+        document.getElementById("filter").addEventListener("click", (event) => {
+            selectedCat = document.getElementById("Categories").value;
+            $.get("products.json", function(products) {
+                let categories = [];
+                products.forEach(function(product) {
+                    if (product.Categories.includes(selectedCat)) {
+                        let newProd = document.createElement("h2");
+                        newProd.textContent = product.Name;
+                        document.getElementById("result").appendChild(newProd);
+                    }
+
+                });
+
+                categories.forEach(function(category) {
+                    let option = document.createElement("option");
+                    option.value =  category;
+                    option.textContent = category;
+                    document.getElementById("Categories").appendChild(option);
+                })
+                
+            });
+        });
+        
+    </script>
+
+    
+    
+</body>
+</html>
