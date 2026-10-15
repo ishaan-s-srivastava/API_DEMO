@@ -9,16 +9,19 @@
 <body>
 
     <div id="result">
-        <button>Display Product</button>
+        <button id="display">Display Product</button>
     </div>
     <script>
-        document.getElementById("result").addEventListener("click", (event) => {
+        document.getElementById("display").addEventListener("click", (event) => {
             $.get("products.json", function(products) {
-                document.getElementById("result").innerHTML = 
-                "<h1>" + products.Name + "</h1></br>" +
-                "<p>" + products.Description + "</p></br>" +
-                "<p>Price: " + products.Price + "</p></br>" +
-                "<p>Categories: " + products.Categories + "</p>"
+                products.forEach(function(product) {
+                    document.getElementById("result").innerHTML += 
+                    "<h1>" + product.Name + "</h1></br>" +
+                    "<p>" + product.Description + "</p></br>" +
+                    "<p>Price: " + product.Price + "</p></br>" +
+                    "<p>Categories: " + product.Categories + "</p>"
+                })
+                
             })
         })
     </script>
